@@ -66,8 +66,8 @@
 	</distributionManagement>
 
 	<scm>
-		<connection>scm:git:https://github.com/Estafet-LTD/estafet-microservices-scrum-api-project-burndown.git</connection>
-		<developerConnection>scm:git:https://github.com/Estafet-LTD/estafet-microservices-scrum-api-project-burndown.git</developerConnection>
+		<connection>scm:git:https://github.com/stericbro/estafet-microservices-scrum-api-project-burndown.git</connection>
+		<developerConnection>scm:git:https://github.com/stericbro/estafet-microservices-scrum-api-project-burndown.git</developerConnection>
 	  <tag>HEAD</tag>
   </scm>
 
