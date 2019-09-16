@@ -31,7 +31,7 @@ def releaseTag
 node('maven') {
 
 	stage("checkout") {
-		git branch: "master", url: "https://${username()}:${password()}@github.com/Estafet-LTD/estafet-microservices-scrum-api-project-burndown"
+		git branch: "master", url: "https://${username()}:${password()}@github.com/stericbro/estafet-microservices-scrum-api-project-burndown"
 	}
 	
 	stage("deploy container") {
