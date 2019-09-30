@@ -14,28 +14,28 @@ import io.opentracing.Tracer;
 @Component
 public class NewSprintConsumer {
 
-	public final static String TOPIC = "new.sprint.topic";
+    public final static String TOPIC = "new.sprint.topic";
 
-	@Autowired
-	private Tracer tracer;
+    @Autowired
+    private Tracer tracer;
 
-	@Autowired
-	private ProjectBurndownService projectBurndownService;
+    @Autowired
+    private ProjectBurndownService projectBurndownService;
 
-	@Autowired
-	private MessageEventHandler messageEventHandler;
+    @Autowired
+    private MessageEventHandler messageEventHandler;
 
-	@JmsListener(destination = TOPIC, containerFactory = "myFactory")
-	public void onMessage(String message, @Header("message.event.interaction.reference") String reference) {
-		try {
-			if (messageEventHandler.isValid(TOPIC, reference)) {
-				projectBurndownService.updateBurndown(ProjectBurndownSprint.fromJSON(message));
-			}
-		} finally {
-			if (tracer.activeSpan() != null) {
-				tracer.activeSpan().close();
-			}
-		}
-	}
+    @JmsListener(destination = TOPIC, containerFactory = "myFactory")
+    public void onMessage(String message, @Header("message.event.interaction.reference") String reference) {
+        try {
+            if (messageEventHandler.isValid(TOPIC, reference)) {
+                projectBurndownService.updateBurndown(ProjectBurndownSprint.fromJSON(message));
+            }
+        } finally {
+            if (tracer.activeSpan() != null) {
+                tracer.activeSpan().close();
+            }
+        }
+    }
 
 }

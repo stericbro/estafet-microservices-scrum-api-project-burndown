@@ -11,17 +11,17 @@ import com.estafet.microservices.api.project.burndown.service.ProjectBurndownSer
 @RestController
 public class ProjectBurndownController {
 
-	@Autowired
-	private ProjectBurndownService projectBurndownService;
+    @Autowired
+    private ProjectBurndownService projectBurndownService;
 
-	@GetMapping("/api")
-	public ProjectBurndown getAPI() {
-		return ProjectBurndown.getAPI();
-	}
+    @GetMapping("/api")
+    public ProjectBurndown getAPI() {
+        return ProjectBurndown.getAPI();
+    }
 
-	@GetMapping("/project/{id}/burndown")
-	public ProjectBurndown getProjectBurndown(@PathVariable int id) {
-		return projectBurndownService.getProjectBurndown(id);
-	}
+    @GetMapping("/project/{id}/burndown")
+    public ProjectBurndown getProjectBurndown(@PathVariable int id) {
+        return projectBurndownService.getProjectBurndown(id);
+    }
 
 }

@@ -23,160 +23,160 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Table(name = "PROJECT_BURNDOWN_SPRINT")
 public class ProjectBurndownSprint {
 
-	@JsonIgnore
-	@Id
-	@SequenceGenerator(name = "PROJECT_BURNDOWN_SPRINT_ID_SEQ", sequenceName = "PROJECT_BURNDOWN_SPRINT_ID_SEQ", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROJECT_BURNDOWN_SPRINT_ID_SEQ")
-	@Column(name = "PROJECT_BURNDOWN_SPRINT_ID")
-	private Integer id;
+    @JsonIgnore
+    @Id
+    @SequenceGenerator(name = "PROJECT_BURNDOWN_SPRINT_ID_SEQ", sequenceName = "PROJECT_BURNDOWN_SPRINT_ID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROJECT_BURNDOWN_SPRINT_ID_SEQ")
+    @Column(name = "PROJECT_BURNDOWN_SPRINT_ID")
+    private Integer id;
 
-	@Column(name = "SPRINT_NUMBER", nullable = false)
-	private Integer number;
+    @Column(name = "SPRINT_NUMBER", nullable = false)
+    private Integer number;
 
-	@Column(name = "POINTS_TOTAL", nullable = false)
-	private Integer pointsTotal = 0;
+    @Column(name = "POINTS_TOTAL", nullable = false)
+    private Integer pointsTotal = 0;
 
-	@Column(name = "STATUS", nullable = false)
-	private String status = "Not Started";
+    @Column(name = "STATUS", nullable = false)
+    private String status = "Not Started";
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "PROJECT_BURNDOWN_ID", referencedColumnName = "PROJECT_BURNDOWN_ID", foreignKey = @ForeignKey(name = "PB_SPRINT_TO_PROJECT_BURNDOWN_FK"))
-	private ProjectBurndown sprintProject;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "PROJECT_BURNDOWN_ID", referencedColumnName = "PROJECT_BURNDOWN_ID", foreignKey = @ForeignKey(name = "PB_SPRINT_TO_PROJECT_BURNDOWN_FK"))
+    private ProjectBurndown sprintProject;
 
-	@Transient
-	private float idealPointsTotal;
+    @Transient
+    private float idealPointsTotal;
 
-	@Transient
-	private Integer projectId;
+    @Transient
+    private Integer projectId;
 
-	@Column(name = "START_DATE", nullable = false)
-	private String startDate;
+    @Column(name = "START_DATE", nullable = false)
+    private String startDate;
 
-	@Column(name = "END_DATE", nullable = false)
-	private String endDate;
+    @Column(name = "END_DATE", nullable = false)
+    private String endDate;
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public Integer getNumber() {
-		return number;
-	}
+    public Integer getNumber() {
+        return number;
+    }
 
-	public Integer getProjectId() {
-		return projectId;
-	}
+    public Integer getProjectId() {
+        return projectId;
+    }
 
-	public ProjectBurndownSprint setProjectId(Integer projectId) {
-		this.projectId = projectId;
-		return this;
-	}
+    public ProjectBurndownSprint setProjectId(Integer projectId) {
+        this.projectId = projectId;
+        return this;
+    }
 
-	public ProjectBurndown getSprintProject() {
-		return sprintProject;
-	}
+    public ProjectBurndown getSprintProject() {
+        return sprintProject;
+    }
 
-	public Integer getPointsTotal() {
-		return pointsTotal;
-	}
+    public Integer getPointsTotal() {
+        return pointsTotal;
+    }
 
-	public float getIdealPointsTotal() {
-		return idealPointsTotal;
-	}
+    public float getIdealPointsTotal() {
+        return idealPointsTotal;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public String getStartDate() {
-		return startDate;
-	}
+    public String getStartDate() {
+        return startDate;
+    }
 
-	public String getEndDate() {
-		return endDate;
-	}
+    public String getEndDate() {
+        return endDate;
+    }
 
-	public ProjectBurndownSprint setStatus(String status) {
-		this.status = status;
-		return this;
-	}
+    public ProjectBurndownSprint setStatus(String status) {
+        this.status = status;
+        return this;
+    }
 
-	public ProjectBurndownSprint setNumber(Integer number) {
-		this.number = number;
-		return this;
-	}
+    public ProjectBurndownSprint setNumber(Integer number) {
+        this.number = number;
+        return this;
+    }
 
-	public ProjectBurndownSprint setPointsTotal(Integer pointsTotal) {
-		this.pointsTotal = pointsTotal;
-		return this;
-	}
+    public ProjectBurndownSprint setPointsTotal(Integer pointsTotal) {
+        this.pointsTotal = pointsTotal;
+        return this;
+    }
 
-	public ProjectBurndownSprint setStartDate(String startDate) {
-		this.startDate = startDate;
-		return this;
-	}
+    public ProjectBurndownSprint setStartDate(String startDate) {
+        this.startDate = startDate;
+        return this;
+    }
 
-	public ProjectBurndownSprint setEndDate(String endDate) {
-		this.endDate = endDate;
-		return this;
-	}
+    public ProjectBurndownSprint setEndDate(String endDate) {
+        this.endDate = endDate;
+        return this;
+    }
 
-	void setIdealPointsTotal(float idealPointsTotal) {
-		this.idealPointsTotal = idealPointsTotal;
-	}
+    void setIdealPointsTotal(float idealPointsTotal) {
+        this.idealPointsTotal = idealPointsTotal;
+    }
 
-	void setSprintProject(ProjectBurndown sprintProject) {
-		this.sprintProject = sprintProject;
-	}
+    void setSprintProject(ProjectBurndown sprintProject) {
+        this.sprintProject = sprintProject;
+    }
 
-	public static ProjectBurndownSprint fromJSON(String message) {
-		try {
-			return new ObjectMapper().readValue(message, ProjectBurndownSprint.class);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    public static ProjectBurndownSprint fromJSON(String message) {
+        try {
+            return new ObjectMapper().readValue(message, ProjectBurndownSprint.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-	public static ProjectBurndownSprint getAPI() {
-		ProjectBurndownSprint projectBurndownSprint = new ProjectBurndownSprint();
-		projectBurndownSprint.id = 1;
-		projectBurndownSprint.number = 1;
-		projectBurndownSprint.pointsTotal = 20;
-		projectBurndownSprint.projectId = 1;
-		projectBurndownSprint.status = "Not Started";
-		return projectBurndownSprint;
-	}
+    public static ProjectBurndownSprint getAPI() {
+        ProjectBurndownSprint projectBurndownSprint = new ProjectBurndownSprint();
+        projectBurndownSprint.id = 1;
+        projectBurndownSprint.number = 1;
+        projectBurndownSprint.pointsTotal = 20;
+        projectBurndownSprint.projectId = 1;
+        projectBurndownSprint.status = "Not Started";
+        return projectBurndownSprint;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((number == null) ? 0 : number.hashCode());
-		result = prime * result + ((projectId == null) ? 0 : projectId.hashCode());
-		return result;
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((number == null) ? 0 : number.hashCode());
+        result = prime * result + ((projectId == null) ? 0 : projectId.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ProjectBurndownSprint other = (ProjectBurndownSprint) obj;
-		if (number == null) {
-			if (other.number != null)
-				return false;
-		} else if (!number.equals(other.number))
-			return false;
-		if (projectId == null) {
-			if (other.projectId != null)
-				return false;
-		} else if (!projectId.equals(other.projectId))
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ProjectBurndownSprint other = (ProjectBurndownSprint) obj;
+        if (number == null) {
+            if (other.number != null)
+                return false;
+        } else if (!number.equals(other.number))
+            return false;
+        if (projectId == null) {
+            if (other.projectId != null)
+                return false;
+        } else if (!projectId.equals(other.projectId))
+            return false;
+        return true;
+    }
 
 }

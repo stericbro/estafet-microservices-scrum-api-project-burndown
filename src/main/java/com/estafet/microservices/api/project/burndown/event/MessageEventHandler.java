@@ -11,26 +11,26 @@ import com.estafet.microservices.api.project.burndown.model.MessageEvent;
 @Component
 public class MessageEventHandler {
 
-	@Autowired
-	private MessageEventDAO messageEventDAO;
+    @Autowired
+    private MessageEventDAO messageEventDAO;
 
-	@Transactional
-	public boolean isValid(String topicName, String reference) {
-		MessageEvent messageEvent = messageEventDAO.getMessageEvent(topicName);
-		if (messageEvent == null || !messageEvent.getMessageReference().equals(reference)) {
-			try {
-				if (messageEvent == null) {
-					messageEventDAO.create(new MessageEvent().setTopicId(topicName).setMessageReference(reference));
-				} else {
-					messageEventDAO.update(messageEvent);
-				}
-			} catch (OptimisticLockException e) {
-				return false;
-			}
-			return true;
-		} else {
-			return false;
-		}
-	}
+    @Transactional
+    public boolean isValid(String topicName, String reference) {
+        MessageEvent messageEvent = messageEventDAO.getMessageEvent(topicName);
+        if (messageEvent == null || !messageEvent.getMessageReference().equals(reference)) {
+            try {
+                if (messageEvent == null) {
+                    messageEventDAO.create(new MessageEvent().setTopicId(topicName).setMessageReference(reference));
+                } else {
+                    messageEventDAO.update(messageEvent);
+                }
+            } catch (OptimisticLockException e) {
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
