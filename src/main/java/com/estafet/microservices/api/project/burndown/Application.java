@@ -39,7 +39,7 @@ public class Application extends SpringBootServletInitializer {
 				com.uber.jaeger.Configuration.SamplerConfiguration.fromEnv(),
 				com.uber.jaeger.Configuration.ReporterConfiguration.fromEnv()).getTracer();
 	}
-	
+
 	@Bean
 	public MessageConverter tracingJmsMessageConverter(Tracer tracer) {
 		return new PropagatingTracingMessageConverter(new SimpleMessageConverter(), tracer);

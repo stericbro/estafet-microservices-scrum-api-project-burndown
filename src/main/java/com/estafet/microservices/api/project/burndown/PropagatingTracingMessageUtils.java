@@ -103,5 +103,5 @@ public class PropagatingTracingMessageUtils {
 	    TracingMessageUtils.inject(span, message, tracer);
 	    return span;
 	  }
-	
+
 }

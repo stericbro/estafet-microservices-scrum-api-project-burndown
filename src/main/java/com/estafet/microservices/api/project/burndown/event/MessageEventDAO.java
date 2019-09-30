@@ -18,12 +18,12 @@ public class MessageEventDAO {
 	public MessageEvent getMessageEvent(String topic) {
 		return entityManager.find(MessageEvent.class, topic);
 	}
-	
+
 	@Transactional
 	public void create(MessageEvent messageEvent) {
 		entityManager.persist(messageEvent);
 	}
-	
+
 	@Transactional
 	public void update(MessageEvent messageEvent) {
 		entityManager.merge(messageEvent);

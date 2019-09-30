@@ -2,7 +2,7 @@ node("maven") {
 
 	def project = "dev"
 	def microservice = "project-burndown"
-	
+
 	currentBuild.description = "Build a container from the source, then execute unit and container integration tests before promoting the container as a release candidate for acceptance testing."
 
 	stage("checkout") {
@@ -38,15 +38,15 @@ node("maven") {
 					sh "oc set env dc/${microservice} JBOSS_A_MQ_BROKER_URL=tcp://localhost:61616 -n ${project}"
 				}
 			}
-		}			
+		}
 	}
 
 	stage("deploy snapshots") {
 		withMaven(mavenSettingsConfig: 'microservices-scrum') {
  			sh "mvn clean deploy -Dmaven.test.skip=true"
 		}
-	}	
-	
+	}
+
 	stage("promote to test") {
 		openshiftTag namespace: project, srcStream: microservice, srcTag: 'latest', destinationNamespace: 'test', destinationStream: microservice, destinationTag: 'PrepareForTesting'
 	}

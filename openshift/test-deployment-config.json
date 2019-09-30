@@ -26,7 +26,7 @@
 			"spec": {
 				"containers": [
 					{
-						"env": [				
+						"env": [
 							{
 								"name": "JBOSS_A_MQ_BROKER_PASSWORD",
 								"value": "amq"

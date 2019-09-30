@@ -16,11 +16,11 @@ public class ProjectBurndownDAO {
 	public ProjectBurndown getProjectBurndown(Integer projectId) {
 		return entityManager.find(ProjectBurndown.class, projectId);
 	}
-		
+
 	public void create(ProjectBurndown projectBurndown) {
 		entityManager.persist(projectBurndown);
 	}
-	
+
 	public void update(ProjectBurndown projectBurndown) {
 		entityManager.merge(projectBurndown);
 	}

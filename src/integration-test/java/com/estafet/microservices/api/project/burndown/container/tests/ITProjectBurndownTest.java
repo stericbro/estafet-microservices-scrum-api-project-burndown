@@ -54,13 +54,13 @@ public class ITProjectBurndownTest {
 			.body("sprints.number", hasItems(0, 1, 2, 3, 4, 5))
 			.body("sprints.pointsTotal", hasItems(0, 0, 0, 0, 0, 0))
 			.body("sprints.idealPointsTotal", hasItems(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f))
-			.body("sprints.status", hasItems("Not Started", "Not Started", "Not Started", "Not Started", "Not Started", "Not Started"));		
+			.body("sprints.status", hasItems("Not Started", "Not Started", "Not Started", "Not Started", "Not Started", "Not Started"));
 	}
-	
+
 	@Test
 	@DatabaseSetup("ITProjectBurndownTest-data.xml")
 	public void testNewProjectThenNewSprint() {
-		NewProjectProducerTopic.send("{ \"id\": 1, \"title\":\"My Project #1\",\"noSprints\":5,\"sprintLengthDays\":5 }");		
+		NewProjectProducerTopic.send("{ \"id\": 1, \"title\":\"My Project #1\",\"noSprints\":5,\"sprintLengthDays\":5 }");
 		NewSprintProducerTopic.send("{ \"id\": 1, \"startDate\": \"2017-10-01 00:00:00\", \"endDate\": \"2017-10-06 00:00:00\", \"number\": 1, \"status\": \"Active\",  \"projectId\": 1,  \"noDays\": 5 }");
 		get("/project/1/burndown").then()
 			.body("id", is(1))
@@ -73,7 +73,7 @@ public class ITProjectBurndownTest {
 	@Test
 	@DatabaseSetup("ITProjectBurndownTest-data.xml")
 	public void testNewStoriesAddedToProject() {
-		NewProjectProducerTopic.send("{ \"id\": 1, \"title\":\"My Project #1\",\"noSprints\":5,\"sprintLengthDays\":5 }");		
+		NewProjectProducerTopic.send("{ \"id\": 1, \"title\":\"My Project #1\",\"noSprints\":5,\"sprintLengthDays\":5 }");
 		NewSprintProducerTopic.send("{ \"id\": 1, \"startDate\": \"2017-10-01 00:00:00\", \"endDate\": \"2017-10-06 00:00:00\", \"number\": 1, \"status\": \"Active\",  \"projectId\": 1,  \"noDays\": 5 }");
 		NewStoryTopic.send("{ \"id\": 1, \"title\": \"some test story\",  \"description\": \"hghghg\",  \"storypoints\": 5,  \"projectId\": 1,  \"status\": \"Not Started\" }");
 		get("/project/1/burndown").then()
@@ -90,13 +90,13 @@ public class ITProjectBurndownTest {
 			.body("sprints.number", hasItems(0, 1, 2, 3, 4, 5))
 			.body("sprints.pointsTotal", hasItems(25, 0, 0, 0, 0, 0))
 			.body("sprints.idealPointsTotal", hasItems(25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f))
-			.body("sprints.status", hasItems("Not Started", "Active", "Not Started", "Not Started", "Not Started", "Not Started"));		
+			.body("sprints.status", hasItems("Not Started", "Active", "Not Started", "Not Started", "Not Started", "Not Started"));
 	}
 
 	@Test
 	@DatabaseSetup("ITProjectBurndownTest-data.xml")
 	public void testStoriesMovedToSprint() {
-		NewProjectProducerTopic.send("{ \"id\": 1, \"title\":\"My Project #1\",\"noSprints\":5,\"sprintLengthDays\":5 }");		
+		NewProjectProducerTopic.send("{ \"id\": 1, \"title\":\"My Project #1\",\"noSprints\":5,\"sprintLengthDays\":5 }");
 		NewSprintProducerTopic.send("{ \"id\": 1, \"startDate\": \"2017-10-01 00:00:00\", \"endDate\": \"2017-10-06 00:00:00\", \"number\": 1, \"status\": \"Active\",  \"projectId\": 1,  \"noDays\": 5 }");
 		NewStoryTopic.send("{ \"id\": 1, \"title\": \"some test story\",  \"description\": \"hghghg\",  \"storypoints\": 5,  \"projectId\": 1,  \"status\": \"Not Started\" }");
 		NewStoryTopic.send("{ \"id\": 2, \"title\": \"another test story\",  \"description\": \"jhjhkhk\",  \"storypoints\": 20,  \"projectId\": 1,  \"status\": \"Not Started\" }");
@@ -109,13 +109,13 @@ public class ITProjectBurndownTest {
 			.body("sprints.number", hasItems(0, 1, 2, 3, 4, 5))
 			.body("sprints.pointsTotal", hasItems(33, 0, 0, 0, 0, 0))
 			.body("sprints.idealPointsTotal", hasItems(33.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f))
-			.body("sprints.status", hasItems("Not Started", "Active", "Not Started", "Not Started", "Not Started", "Not Started"));		
+			.body("sprints.status", hasItems("Not Started", "Active", "Not Started", "Not Started", "Not Started", "Not Started"));
 	}
 
 	@Test
 	@DatabaseSetup("ITProjectBurndownTest-data.xml")
 	public void testCompletedSprint() {
-		NewProjectProducerTopic.send("{ \"id\": 1, \"title\":\"My Project #1\",\"noSprints\":5,\"sprintLengthDays\":5 }");		
+		NewProjectProducerTopic.send("{ \"id\": 1, \"title\":\"My Project #1\",\"noSprints\":5,\"sprintLengthDays\":5 }");
 		NewSprintProducerTopic.send("{ \"id\": 1, \"startDate\": \"2017-10-01 00:00:00\", \"endDate\": \"2017-10-06 00:00:00\", \"number\": 1, \"status\": \"Active\",  \"projectId\": 1,  \"noDays\": 5 }");
 		NewStoryTopic.send("{ \"id\": 1, \"title\": \"some test story\",  \"description\": \"hghghg\",  \"storypoints\": 5,  \"projectId\": 1,  \"status\": \"Not Started\" }");
 		NewStoryTopic.send("{ \"id\": 2, \"title\": \"another test story\",  \"description\": \"jhjhkhk\",  \"storypoints\": 20,  \"projectId\": 1,  \"status\": \"Not Started\" }");
@@ -132,7 +132,7 @@ public class ITProjectBurndownTest {
 			.body("sprints.number", hasItems(0, 1, 2, 3, 4, 5))
 			.body("sprints.pointsTotal", hasItems(33, 8, 0, 0, 0, 0))
 			.body("sprints.idealPointsTotal", hasItems(33.0f, 26.4f, 13.199999f, 6.6000004f, 0.0f));
-		
+
 	}
 
 }

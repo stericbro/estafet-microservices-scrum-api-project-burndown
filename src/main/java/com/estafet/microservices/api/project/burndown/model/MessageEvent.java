@@ -16,7 +16,7 @@ public class MessageEvent {
 
 	@Column(name = "MESSAGE_REFERENCE", nullable = false)
 	private String messageReference;
-	
+
 	@Version
 	@Column(name = "VERSION")
 	private Integer version;

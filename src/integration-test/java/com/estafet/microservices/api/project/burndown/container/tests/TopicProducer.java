@@ -17,7 +17,7 @@ public abstract class TopicProducer {
 	String topicName;
 	Connection connection;
 	Session session;
-	
+
 	public TopicProducer(String topicName) {
 		this.topicName = topicName;
 	}
